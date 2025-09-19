@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Gallery</title>
+
+    <style>
+      html, body {
+        height: 100%;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Make the page a column layout so footer is always at the bottom */
+      body {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          background-color: #2e2e4e;
+          color: #C1CFD6;
+      }
+
+      header, nav, section, footer {
+          padding: 10px;
+      }
+
+      main {
+          flex: 1; /* Take up remaining space between header and footer */
+      }
+
+      .header-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid #ccc;
+      }
+
+      .header-top img {
+          width: 50px;
+          height: auto;
+      }
+
+      nav a {
+          margin: 0 10px;
+          text-decoration: none;
+          color: #C1CFD6;
+      }
+
+      nav button {
+          padding: 5px 10px;
+          background: #333;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+      }
+
+      h1, h2 {
+          text-align: center;
+      }
+
+      /* Product grid fills available space */
+      .product-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 32px;
+          padding: 40px;
+          flex-grow: 1;
+      }
+
+      .product-card {
+          border: 1px solid #ccc;
+          padding: 10px;
+          text-align: center;
+          background: #fafafa;
+      }
+
+      .product-card img {
+          width: 100%;
+          height: 150px;
+          object-fit: cover;
+          background: #ddd;
+      }
+
+      .product-card h4 {
+          margin: 10px 0 5px;
+      }
+
+      .product-card p {
+          font-size: 0.9em;
+          margin-bottom: 10px;
+      }
+
+      .product-card button {
+          padding: 5px 10px;
+          background: #333;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+      }
+
+      /* Footer styling */
+      footer {
+          background: #333;
+          color: #fff;
+          padding: 15px 30px;
+      }
+
+      .footer-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+      }
+
+      .footer-left form {
+          display: flex;
+      }
+
+      .footer-left input[type="email"] {
+          padding: 5px;
+          border: none;
+          outline: none;
+      }
+
+      .footer-left button {
+          padding: 5px 10px;
+          background: #555;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+      }
+
+      .footer-center a,
+      .footer-right a {
+          color: #fff;
+          margin: 0 5px;
+          text-decoration: none;
+      }
+
+      .footer-right {
+          display: flex;
+          gap: 10px;
+      }
+
+      .popUp {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #fff;
+          padding: 20px;
+          border: 2px solid #333;
+          z-index: 1000;
+      }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <img src="photos/logo.png" alt="Logo">
+        <h1>Book Haven Bookstore</h1>
+        <nav>
+            <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/index.html" tabindex="0">Home</a>
+            <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/about.html" tabindex="0">About Us</a>
+            <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/events.html" tabindex="0">Events</a>
+            <button tabindex="0" id="openPopUp">CART</button>
+        </nav>
+    </div>
+</header>
+
+<div id="popUp" class="popUp">
+    <h2>Shopping Cart</h2>
+    <ul id="cart-items">{{this.item}}</ul>
+    <ul id="cart-items">{{this.cartItemsContainer}}</ul>
+    <button id="emptyCart">Empty</button>
+    <button id="closePopUp">Close</button> 
+</div>
+
+<h2>Best Sellers</h2>
+
+<section class="product-grid">
+    <div class="product-card">
+        <img src="photos/cheese_book.png" alt="brie mine 4ever" tabindex="0">
+        <label>Brie Mine 4Ever</label>
+        <p>Brie cheese lovers will adore this delightful book!</p>
+        <button tabindex="0" id="brie-mine-4ever">Add to Cart</button>
+    </div>
+    <div class="product-card">
+        <img src="photos/bikers_book.png" alt="Bikers Book" tabindex="0">
+        <label>Bikers Book</label>
+        <p>A thrilling ride through the world of biking!</p>
+        <button tabindex="0" id="bikers-book">Add to Cart</button>
+    </div>
+    <div class="product-card">
+        <img src="photos/fantasy_book.png" alt="Fantasy Book" tabindex="0">
+        <h4>Fantasy Book</h4>
+        <p>Embark on an epic journey through magical realms!</p>
+        <button tabindex="0" id="fantasy-book">Add to Cart</button>
+    </div>
+
+    <div class="product-card">
+      <img src="photos/magazine_book.png" alt="Sports magazine" tabindex="0">
+      <h4>Sports Magazine</h4>
+      <p>Stay updated with the latest in the world of sports!</p>
+      <button tabindex="0" id="sports-magazine">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/travel_magazine.png" alt="Travel Magazine" tabindex="0">
+      <h4>Travel Magazine</h4>
+      <p>Explore the world from the comfort of your home!</p>
+      <button tabindex="0" id="travel-magazine">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/food_magazin.png" alt="Food Magazine" tabindex="0">
+      <h4>Food Magazine</h4>
+      <p>Indulge in the flavors of the world!</p>
+      <button tabindex="0" id="food-magazine">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/othello_book.png" alt="Othello Book" tabindex="0">
+      <h4>Othello</h4>
+      <p>Experience the tragedy of jealousy and betrayal in Shakespeare's classic.</p>
+      <button tabindex="0" id="othello-book">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/potter_book.png" alt="Harry Potter" tabindex="0">
+      <h4>Harry Potter</h4>
+      <p>Join Harry and his friends on their magical adventures!</p>
+      <button tabindex="0" id="harry-potter">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/war_and_peace.png" alt="War and Peace" tabindex="0">
+      <h4>War and Peace</h4>
+      <p>Experience the epic tale of love and conflict in this literary masterpiece.</p>
+      <button tabindex="0" id="war-and-peace">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/war_and_peace.png" alt="Product Image" tabindex="0">
+      <h4>H4 Product Title</h4>
+      <p>Product Description</p>
+      <button tabindex="0" id="product-1">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/war_and_peace.png" alt="Product Image" tabindex="0">
+      <h4>H4 Product Title</h4>
+      <p>Product Description</p>
+      <button tabindex="0">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="photos/war_and_peace.png" alt="Product Image" tabindex="0">
+      <h4>H4 Product Title</h4>
+      <p>Product Description</p>
+      <button tabindex="0">Add to Cart</button>
+    </div>
+   
+</section>
+
+<footer>
+    <div class="footer-container">
+        <!-- Left: Subscribe Form -->
+        <div class="footer-left">
+            <form>
+                <button type="submit" tabindex="0">Subscribe</button>
+                <input type="email" placeholder="Email list" tabindex="0">
+            </form>
+        </div>
+
+        <!-- Center: Links -->
+        <div class="footer-center">
+          <a href="/page" tabindex="0">Home</a>
+          <a href="/about.html" tabindex="0">About Us</a>
+          <a href="/events.html" tabindex="0">Events</a>
+        </div>
+
+        <!-- Right: Social Links -->
+        <div class="footer-right">
+            <a href="#" tabindex="0">Instagram</a>
+            <a href="#" tabindex="0">Facebook</a>
+            <a href="#" tabindex="0">X.com</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Helper: get product name from button
+    function getProductNameFromButton(button) {
+        // Try to get the closest label or h4 above the button
+        const card = button.closest('.product-card');
+        let name = '';
+        if (card.querySelector('label')) {
+            name = card.querySelector('label').textContent;
+        } else if (card.querySelector('h4')) {
+            name = card.querySelector('h4').textContent;
+        } else {
+            name = button.id || 'Product';
+        }
+        return name;
+    }
+
+    // Add to cart handler
+    document.querySelectorAll(".product-card button").forEach(button => {
+        button.addEventListener("click", () => {
+            const name = getProductNameFromButton(button);
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart.push(name);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} added to cart!`);
+        });
+    });
+
+    // Show cart items in popup
+    function renderCart() {
+        const cartItemsContainer = document.getElementById("cart-items");
+        const emptyCartItem = document.getElementById('emptyCart');
+        cartItemsContainer.innerHTML = '';
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (cart.length === 0) {
+            const empty = document.createElement('li');
+            empty.textContent = 'Cart is empty.';
+            cartItemsContainer.appendChild(empty);
+        }else if(cart.length > 0) {
+            cart.forEach(itemName => {
+                const item = document.createElement("li");
+                item.textContent = itemName;
+                cartItemsContainer.appendChild(item);
+            });
+        }else{
+            const empty = document.createElement('li');
+            empty.textContent = 'Cart is empty.';
+            cartItemsContainer.append('');
+        }
+    }
+
+    const openPopUpButton = document.getElementById("openPopUp");
+    openPopUpButton.addEventListener("click", () => {
+        renderCart();
+        document.getElementById("popUp").style.display = "block";
+    });
+
+    const closePopUpButton = document.getElementById("closePopUp");
+    closePopUpButton.addEventListener("click", () => {
+        document.getElementById("popUp").style.display = "none";
+    });
+
+</script>
+</body>
+</html>
