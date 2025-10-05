@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Gallery</title>
+    <!-- <script src="script.js"></script> -->
 
     <style>
       html, body {
@@ -176,7 +177,7 @@
 <div id="popUp" class="popUp">
     <h2>Shopping Cart</h2>
     <ul id="cart-items">{{this.item}}</ul>
-    <ul id="cart-items">{{this.cartItemsContainer}}</ul>
+    <!-- <ul id="cart-items">{{this.cartItemsContainer}}</ul> -->
     <button id="emptyCart">Empty</button>
     <button id="closePopUp">Close</button> 
 </div>
@@ -264,7 +265,7 @@
     <div class="footer-container">
         <!-- Left: Subscribe Form -->
         <div class="footer-left">
-            <form>
+            <form novalidate>
                 <button type="submit" tabindex="0">Subscribe</button>
                 <input type="email" placeholder="Email list" tabindex="0">
             </form>
@@ -287,6 +288,25 @@
 </footer>
 
 <script>
+    // Subscribe Email List
+    document.querySelector('.footer-left form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const emailInput = this.querySelector('input[type="email"]');
+        const email = emailInput.value.trim();
+        // Simple email regex for basic validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(email && emailPattern.test(email)) {
+            alert('Thank you subscriber ' + email + '!');
+
+        }else{
+            alert('Please enter a valid email address.');
+        }
+    });
+
+
+
+
+
     // Helper: get product name from button
     function getProductNameFromButton(button) {
         // Try to get the closest label or h4 above the button
@@ -309,7 +329,7 @@
             let cart = JSON.parse(localStorage.getItem('cart') || '[]');
             cart.push(name);
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert(`${name} added to cart!`);
+            alert(`${name} item added to the cart!`);
         });
     });
 
@@ -321,7 +341,7 @@
         let cart = JSON.parse(localStorage.getItem('cart') || '[]');
         if (cart.length === 0) {
             const empty = document.createElement('li');
-            empty.textContent = 'Cart is empty.';
+            empty.textContent = '';
             cartItemsContainer.appendChild(empty);
         }else if(cart.length > 0) {
             cart.forEach(itemName => {
@@ -345,6 +365,15 @@
     const closePopUpButton = document.getElementById("closePopUp");
     closePopUpButton.addEventListener("click", () => {
         document.getElementById("popUp").style.display = "none";
+    });
+
+    // Clear cart handler
+    document.getElementById("emptyCart").addEventListener("click", () => {
+        localStorage.removeItem('cart');
+        renderCart();
+        if('cart'.length === 1){
+            alert('No items to clear');
+        }
     });
 
 </script>

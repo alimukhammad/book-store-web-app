@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>About Us</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <script src="script.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -238,7 +240,7 @@
           <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/index.html" tabindex="0">Home</a>
           <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/gallery.html" tabindex="0">Gallery</a>
           <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/events.html" tabindex="0">Events</a>
-          <button tabindex="0">CART</button>
+          <button tabindex="0" id="openPopUp">CART</button>
         </nav>
     </div>
   </header>
@@ -325,6 +327,39 @@
         </div>
     </div>
 </footer>
+<script>
+    // Subscribe Email List
+    document.querySelector('.footer-left form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const emailInput = this.querySelector('input[type="email"]');
+        const email = emailInput.value.trim();
+        // Simple email regex for basic validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(email && emailPattern.test(email)) {
+            alert('Thank you subscriber ' + email + '!');
+
+        }else{
+            alert('Please enter a valid email address.');
+        }
+    });
+
+    // Contact Form Submission
+    document.querySelector('.contact-form button').addEventListener('click', function() {
+        const name = document.querySelector('.contact-form input[type="text"]').value.trim();
+        const email = document.querySelector('.contact-form input[type="email"]').value.trim();
+        const message = document.querySelector('.contact-form textarea').value.trim();
+
+        if(name && email && message) {
+            alert('Thank you ' + name + '! Your message has been sent.');
+            // Clear the form
+            document.querySelector('.contact-form input[type="text"]').value = '';
+            document.querySelector('.contact-form input[type="email"]').value = '';
+            document.querySelector('.contact-form textarea').value = '';
+        } else {
+            alert('Please fill in all fields before submitting.');
+        }
+    });
+</script>
 
 </body>
 </html>

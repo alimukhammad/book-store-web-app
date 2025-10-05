@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Events & Collaborations</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="script.js"></script>
   <style>
     html,body {
       font-family: Arial, sans-serif;
@@ -209,7 +210,7 @@
           <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/index.html" tabindex="0">Home</a>
           <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/gallery.html" tabindex="0">Gallery</a>
           <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/about.html" tabindex="0">About Us</a>
-          <button tabindex="0">CART</button>
+          <button tabindex="0" id="openPopUp">CART</button>
         </nav>
     </div>
   </header>
@@ -286,6 +287,22 @@
         </div>
     </div>
   </footer>
+  <script>
+    // Subscribe Email List
+    document.querySelector('.footer-left form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const emailInput = this.querySelector('input[type="email"]');
+        const email = emailInput.value.trim();
+        // Simple email regex for basic validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(email && emailPattern.test(email)) {
+            alert('Thank you subscriber ' + email + '!');
+
+        }else{
+            alert('Please enter a valid email address.');
+        }
+    });
+</script>
 
 </body>
 </html>
