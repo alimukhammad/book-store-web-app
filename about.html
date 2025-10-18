@@ -349,6 +349,16 @@
         const email = document.querySelector('.contact-form input[type="email"]').value.trim();
         const message = document.querySelector('.contact-form textarea').value.trim();
 
+        const emailInput = this.querySelector('input[type="email"]');
+        // Simple email regex for basic validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(email && emailPattern.test(email)) {
+            alert('Thank you subscriber ' + email + '!');
+            exit;
+        }else{
+            alert('Please enter a valid email address.');
+        }
+
         if(name && email && message) {
             alert('Thank you ' + name + '! Your message has been sent.');
             // Clear the form

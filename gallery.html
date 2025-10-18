@@ -179,6 +179,7 @@
     <ul id="cart-items">{{this.item}}</ul>
     <!-- <ul id="cart-items">{{this.cartItemsContainer}}</ul> -->
     <button id="emptyCart">Empty</button>
+    <button id="processCart">Process</button> 
     <button id="closePopUp">Close</button> 
 </div>
 
@@ -293,7 +294,6 @@
         event.preventDefault();
         const emailInput = this.querySelector('input[type="email"]');
         const email = emailInput.value.trim();
-        // Simple email regex for basic validation
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if(email && emailPattern.test(email)) {
             alert('Thank you subscriber ' + email + '!');
@@ -336,44 +336,57 @@
     // Show cart items in popup
     function renderCart() {
         const cartItemsContainer = document.getElementById("cart-items");
-        const emptyCartItem = document.getElementById('emptyCart');
         cartItemsContainer.innerHTML = '';
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
         if (cart.length === 0) {
             const empty = document.createElement('li');
-            empty.textContent = '';
+            empty.textContent = 'Cart is empty.';
             cartItemsContainer.appendChild(empty);
-        }else if(cart.length > 0) {
+        } else {
             cart.forEach(itemName => {
                 const item = document.createElement("li");
                 item.textContent = itemName;
                 cartItemsContainer.appendChild(item);
             });
-        }else{
-            const empty = document.createElement('li');
-            empty.textContent = 'Cart is empty.';
-            cartItemsContainer.append('');
         }
     }
-
+    
     const openPopUpButton = document.getElementById("openPopUp");
     openPopUpButton.addEventListener("click", () => {
         renderCart();
         document.getElementById("popUp").style.display = "block";
     });
-
+    
     const closePopUpButton = document.getElementById("closePopUp");
     closePopUpButton.addEventListener("click", () => {
         document.getElementById("popUp").style.display = "none";
     });
-
+    
     // Clear cart handler
     document.getElementById("emptyCart").addEventListener("click", () => {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (cart.length === 0) {
+            alert('No items to clear');
+            return;
+        }
         localStorage.removeItem('cart');
         renderCart();
-        if('cart'.length === 1){
-            alert('No items to clear');
+        alert('Cart cleared.');
+    });
+
+    // Process cart handler
+    document.getElementById("processCart").addEventListener("click", () => {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (cart.length === 0) {
+            alert('No items to process');
+            return;
         }
+        // Simulate order processing
+        localStorage.removeItem('cart');
+        renderCart();
+        alert('Thank you for your order! Processed ' + cart.length + ' item(s).');
     });
 
 </script>
