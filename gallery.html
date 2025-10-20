@@ -304,9 +304,6 @@
     });
 
 
-
-
-
     // Helper: get product name from button
     function getProductNameFromButton(button) {
         // Try to get the closest label or h4 above the button
@@ -326,9 +323,9 @@
     document.querySelectorAll(".product-card button").forEach(button => {
         button.addEventListener("click", () => {
             const name = getProductNameFromButton(button);
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            cart.push(name);
-            localStorage.setItem('cart', JSON.stringify(cart));
+            const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+            cart.push({name, addedAt: Date.now()});
+            sessionStorage.setItem('cart', JSON.stringify(cart));
             alert(`${name} item added to the cart!`);
         });
     });
@@ -338,14 +335,15 @@
         const cartItemsContainer = document.getElementById("cart-items");
         cartItemsContainer.innerHTML = '';
 
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
 
         if (cart.length === 0) {
             const empty = document.createElement('li');
             empty.textContent = 'Cart is empty.';
             cartItemsContainer.appendChild(empty);
         } else {
-            cart.forEach(itemName => {
+            cart.forEach(entry => {
+                const itemName = (typeof entry === 'string') ? entry : entry.name;
                 const item = document.createElement("li");
                 item.textContent = itemName;
                 cartItemsContainer.appendChild(item);
@@ -366,25 +364,25 @@
     
     // Clear cart handler
     document.getElementById("emptyCart").addEventListener("click", () => {
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
         if (cart.length === 0) {
             alert('No items to clear');
             return;
         }
-        localStorage.removeItem('cart');
+        sessionStorage.removeItem('cart');
         renderCart();
         alert('Cart cleared.');
     });
 
     // Process cart handler
     document.getElementById("processCart").addEventListener("click", () => {
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
         if (cart.length === 0) {
             alert('No items to process');
             return;
         }
         // Simulate order processing
-        localStorage.removeItem('cart');
+        sessionStorage.removeItem('cart');
         renderCart();
         alert('Thank you for your order! Processed ' + cart.length + ' item(s).');
     });
