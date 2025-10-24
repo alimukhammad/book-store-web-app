@@ -1,14 +1,11 @@
-home1.jpg
+# Book Store Web App
 
-![alt text](https://https://github.com/alimukhammad/book-store-web-app/tree/main/project-photo/home1.jpg)
+![Home screenshot](project-photo/home1.jpg)
 
+![Gallery](project-photo/gallery1.jpg)
 
-![alt text](.project-photo/gallery1.jpg)
+![Events](project-photo/events1.jpg)
 
+![About us 1](project-photo/about-us1.jpg)
 
-![alt text](.project-photo/events1.jpg)
-
-
-![alt text](.project-photo/about-us1.jpg)
-
-![alt text](.project-photo/about-us2.jpg)
+![About us 2](project-photo/about-us2.jpg)
