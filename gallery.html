@@ -169,18 +169,22 @@
             <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/index.html" tabindex="0">Home</a>
             <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/about.html" tabindex="0">About Us</a>
             <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/events.html" tabindex="0">Events</a>
-            <button tabindex="0" id="openPopUp">CART</button>
+            <button id="openPopUp">CART <span id="cart-count" aria-hidden="true"></span></button>
         </nav>
     </div>
 </header>
 
-<div id="popUp" class="popUp">
-    <h2>Shopping Cart</h2>
-    <ul id="cart-items">{{this.item}}</ul>
-    <!-- <ul id="cart-items">{{this.cartItemsContainer}}</ul> -->
-    <button id="emptyCart">Empty</button>
-    <button id="processCart">Process</button> 
-    <button id="closePopUp">Close</button> 
+<!-- Backdrop for modal (covers screen when modal open) -->
+<div id="modal-backdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999;"></div>
+
+<div id="popUp" class="popUp" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true" tabindex="-1">
+        <h2 id="cart-title">Shopping Cart</h2>
+        <ul id="cart-items"></ul>
+        <div style="margin-top:12px; display:flex; gap:8px;">
+            <button id="emptyCart">Empty</button>
+            <button id="processCart">Process</button>
+            <button id="closePopUp">Close</button>
+        </div>
 </div>
 
 <h2>Best Sellers</h2>
@@ -190,74 +194,74 @@
         <img src="photos/cheese_book.png" alt="brie mine 4ever" tabindex="0">
         <label>Brie Mine 4Ever</label>
         <p>Brie cheese lovers will adore this delightful book!</p>
-        <button tabindex="0" id="brie-mine-4ever">Add to Cart</button>
+        <button class="add-to-cart" tabindex="0" id="brie-mine-4ever">Add to Cart</button>
     </div>
     <div class="product-card">
         <img src="photos/bikers_book.png" alt="Bikers Book" tabindex="0">
         <label>Bikers Book</label>
         <p>A thrilling ride through the world of biking!</p>
-        <button tabindex="0" id="bikers-book">Add to Cart</button>
+        <button class="add-to-cart" tabindex="0" id="bikers-book">Add to Cart</button>
     </div>
     <div class="product-card">
         <img src="photos/fantasy_book.png" alt="Fantasy Book" tabindex="0">
         <h4>Fantasy Book</h4>
         <p>Embark on an epic journey through magical realms!</p>
-        <button tabindex="0" id="fantasy-book">Add to Cart</button>
+        <button class="add-to-cart" tabindex="0" id="fantasy-book">Add to Cart</button>
     </div>
 
     <div class="product-card">
       <img src="photos/magazine_book.png" alt="Sports magazine" tabindex="0">
       <h4>Sports Magazine</h4>
       <p>Stay updated with the latest in the world of sports!</p>
-      <button tabindex="0" id="sports-magazine">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0" id="sports-magazine">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/travel_magazine.png" alt="Travel Magazine" tabindex="0">
       <h4>Travel Magazine</h4>
       <p>Explore the world from the comfort of your home!</p>
-      <button tabindex="0" id="travel-magazine">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0" id="travel-magazine">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/food_magazin.png" alt="Food Magazine" tabindex="0">
       <h4>Food Magazine</h4>
       <p>Indulge in the flavors of the world!</p>
-      <button tabindex="0" id="food-magazine">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0" id="food-magazine">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/othello_book.png" alt="Othello Book" tabindex="0">
       <h4>Othello</h4>
       <p>Experience the tragedy of jealousy and betrayal in Shakespeare's classic.</p>
-      <button tabindex="0" id="othello-book">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0" id="othello-book">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/potter_book.png" alt="Harry Potter" tabindex="0">
       <h4>Harry Potter</h4>
       <p>Join Harry and his friends on their magical adventures!</p>
-      <button tabindex="0" id="harry-potter">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0" id="harry-potter">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/war_and_peace.png" alt="War and Peace" tabindex="0">
       <h4>War and Peace</h4>
       <p>Experience the epic tale of love and conflict in this literary masterpiece.</p>
-      <button tabindex="0" id="war-and-peace">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0" id="war-and-peace">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/war_and_peace.png" alt="Product Image" tabindex="0">
       <h4>H4 Product Title</h4>
       <p>Product Description</p>
-      <button tabindex="0" id="product-1">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0" id="product-1">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/war_and_peace.png" alt="Product Image" tabindex="0">
       <h4>H4 Product Title</h4>
       <p>Product Description</p>
-      <button tabindex="0">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0">Add to Cart</button>
     </div>
     <div class="product-card">
       <img src="photos/war_and_peace.png" alt="Product Image" tabindex="0">
       <h4>H4 Product Title</h4>
       <p>Product Description</p>
-      <button tabindex="0">Add to Cart</button>
+    <button class="add-to-cart" tabindex="0">Add to Cart</button>
     </div>
    
 </section>
@@ -324,9 +328,12 @@
         button.addEventListener("click", () => {
             const name = getProductNameFromButton(button);
             const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+            //////////////////////////////////////////////////////////////////////////
             cart.push({name, addedAt: Date.now()});
             sessionStorage.setItem('cart', JSON.stringify(cart));
+            //////////////////////////////////////////////////////////////////////////
             alert(`${name} item added to the cart!`);
+
         });
     });
 
@@ -334,9 +341,9 @@
     function renderCart() {
         const cartItemsContainer = document.getElementById("cart-items");
         cartItemsContainer.innerHTML = '';
-
+        ///////////////////////////////////////////////////////////////////////////////
         const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-
+        ///////////////////////////////////////////////////////////////////////////////
         if (cart.length === 0) {
             const empty = document.createElement('li');
             empty.textContent = 'Cart is empty.';
@@ -352,6 +359,7 @@
     }
     
     const openPopUpButton = document.getElementById("openPopUp");
+
     openPopUpButton.addEventListener("click", () => {
         renderCart();
         document.getElementById("popUp").style.display = "block";
@@ -386,6 +394,23 @@
         renderCart();
         alert('Thank you for your order! Processed ' + cart.length + ' item(s).');
     });
+
+    //number of items length
+    var cartLength = JSON.parse(sessionStorage.getItem('cart') || '[]').length;
+    if(cartLength >= 1){
+        document.getElementById('cart-count').textContent = cartLength;
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () =>{
+            window.location.reload();
+        });
+    });
+
+    document.getElementById('emptyCart').addEventListener('click', () =>{
+        window.location.reload();
+    })
+
 
 </script>
 </body>
