@@ -296,7 +296,7 @@
         <input type="email" placeholder="Your email" tabindex="0">
         <h5>Message:</h5>
         <textarea placeholder="Your message" tabindex="0"></textarea>
-        <button type="submit" tabindex="0">Send</button>
+        <button type="submit" id="submit" tabindex="0">Send</button>
       </div>
     </section>
 
@@ -337,26 +337,26 @@
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if(email && emailPattern.test(email)) {
             alert('Thank you subscriber ' + email + '!');
-
+            window.location.reload();
         }else{
             alert('Please enter a valid email address.');
+            window.location.reload();
         }
     });
 
     // Contact Form Submission
-    document.querySelector('.contact-form button').addEventListener('click', function() {
+    document.getElementById('submit').addEventListener('click', function() {
         const name = document.querySelector('.contact-form input[type="text"]').value.trim();
-        const email = document.querySelector('.contact-form input[type="email"]').value.trim();
         const message = document.querySelector('.contact-form textarea').value.trim();
-
-        const emailInput = this.querySelector('input[type="email"]');
-        // Simple email regex for basic validation
+         // Simple email regex for basic validation
+        const email = document.querySelector('.contact-form input[type="email"]').value.trim();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(email && emailPattern.test(email)) {
-            alert('Thank you subscriber ' + email + '!');
-            exit;
-        }else{
+        contactSubmittion(name, email, message);
+
+      
+        if(!(email && emailPattern.test(email))) {
             alert('Please enter a valid email address.');
+            return;
         }
 
         if(name && email && message) {
@@ -369,6 +369,13 @@
             alert('Please fill in all fields before submitting.');
         }
     });
+
+    function contactSubmittion(name, email, message){
+      const info = JSON.parse(sessionStorage.getItem('contactMessages') || '[]');
+      info.push({name, email, message});
+      sessionStorage.setItem('contactMessages', JSON.stringify(info));
+      console.log(sessionStorage.getItem('contactMessages'));
+    }
 </script>
 
 </body>

@@ -346,7 +346,7 @@
         ///////////////////////////////////////////////////////////////////////////////
         if (cart.length === 0) {
             const empty = document.createElement('li');
-            empty.textContent = 'Cart is empty.';
+            empty.textContent = '';
             cartItemsContainer.appendChild(empty);
         } else {
             cart.forEach(entry => {
@@ -395,21 +395,28 @@
         alert('Thank you for your order! Processed ' + cart.length + ' item(s).');
     });
 
-    //number of items length
+    //calculate number of items length in cart
     var cartLength = JSON.parse(sessionStorage.getItem('cart') || '[]').length;
     if(cartLength >= 1){
         document.getElementById('cart-count').textContent = cartLength;
     }
 
+    //refresh on add to cart
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', () =>{
             window.location.reload();
         });
     });
 
+    //refresh on process cart
+    document.getElementById('processCart').addEventListener('click', () =>{
+        window.location.reload();
+    });
+
+    //refresh on empty cart
     document.getElementById('emptyCart').addEventListener('click', () =>{
         window.location.reload();
-    })
+    });
 
 
 </script>
