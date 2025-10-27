@@ -57,6 +57,47 @@
           cursor: pointer;
       }
 
+                    /* Navigation layout */
+                    nav {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                    }
+
+                    .nav-menu {
+                        display: flex;
+                        gap: 10px;
+                    }
+
+                    /* push cart to the right */
+                    .nav-cart {
+                        margin-left: auto;
+                    }
+
+                    /* Hamburger / mobile nav */
+                    .nav-toggle {
+                display: none; /* shown at small screens */
+                background: transparent;
+                border: none;
+                color: #C1CFD6;
+                font-size: 24px;
+                cursor: pointer;
+            }
+
+            /* When nav has .nav-open on small screens, show links vertically */
+            nav.nav-open {
+                position: absolute;
+                top: 64px;
+                right: 16px;
+                background: #2e2e4e;
+                padding: 12px;
+                border: 1px solid #444;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                z-index: 1100;
+            }
+
       h1, h2 {
           text-align: center;
       }
@@ -157,6 +198,49 @@
           z-index: 1000;
       }
 
+        /* Mobile: show 2 columns in product grid and consistent mobile nav */
+        @media (max-width: 599px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 16px;
+                gap: 12px;
+            }
+            .product-card img {
+                height: 160px;
+            }
+            .popUp {
+                width: calc(100% - 32px);
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-height: 80vh;
+                overflow: auto;
+            }
+
+            /* Mobile nav: hide normal links and show hamburger */
+            nav .nav-menu { display: none; }
+            .nav-toggle { display: inline-block; }
+
+            /* When opened, make the nav a full-width dropdown with vertical links */
+            nav.nav-open {
+                position: absolute;
+                top: 56px;
+                left: 0;
+                right: 0;
+                background: #2e2e4e;
+                padding: 12px 8px;
+                border-bottom: 1px solid #444;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                z-index: 1100;
+            }
+            nav.nav-open .nav-menu { display: flex; flex-direction: column; }
+            nav.nav-open .nav-menu a { padding: 10px 12px; display: block; color: #C1CFD6; text-decoration: none; }
+            /* keep cart button available on the right/visually accessible */
+            .nav-cart { margin-left: auto; }
+        }
+      
+
     </style>
 </head>
 <body>
@@ -165,12 +249,18 @@
     <div class="header-top">
         <img src="photos/logo.png" alt="Logo">
         <h1>Book Haven Bookstore</h1>
-        <nav>
-            <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/index.html" tabindex="0">Home</a>
-            <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/about.html" tabindex="0">About Us</a>
-            <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/events.html" tabindex="0">Events</a>
-            <button id="openPopUp">CART <span id="cart-count" aria-hidden="true"></span></button>
-        </nav>
+            <nav>
+                <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Open navigation">☰</button>
+                <div id="navMenu" class="nav-menu">
+                    <a href="/index.html" tabindex="0">Home</a>
+                    <a href="/about.html" tabindex="0">About Us</a>
+                    <a href="/events.html" tabindex="0">Events</a>
+                    <a href="/gallery.html" tabindex="0">Gallery</a>
+                </div>
+                <div>
+                    <button id="openPopUp" class="nav-cart">CART <span id="cart-count" aria-hidden="true"></span></button>
+                </div>
+            </nav>
     </div>
 </header>
 
@@ -277,11 +367,11 @@
         </div>
 
         <!-- Center: Links -->
-        <div class="footer-center">
-          <a href="/page" tabindex="0">Home</a>
-          <a href="/about.html" tabindex="0">About Us</a>
-          <a href="/events.html" tabindex="0">Events</a>
-        </div>
+                <div class="footer-center">
+                    <a href="/index.html" tabindex="0">Home</a>
+                    <a href="/about.html" tabindex="0">About Us</a>
+                    <a href="/events.html" tabindex="0">Events</a>
+                </div>
 
         <!-- Right: Social Links -->
         <div class="footer-right">
@@ -417,6 +507,26 @@
     document.getElementById('emptyCart').addEventListener('click', () =>{
         window.location.reload();
     });
+
+        // Mobile nav toggle behavior
+        (function(){
+            const navToggle = document.getElementById('navToggle');
+            const nav = document.querySelector('nav');
+            const navMenu = document.getElementById('navMenu');
+            if (!navToggle || !nav) return;
+            navToggle.addEventListener('click', () => {
+                const opened = nav.classList.toggle('nav-open');
+                navToggle.setAttribute('aria-expanded', opened ? 'true' : 'false');
+            });
+            if (navMenu) {
+                navMenu.addEventListener('click', (e) => {
+                    if (e.target && e.target.tagName === 'A') {
+                        nav.classList.remove('nav-open');
+                        navToggle.setAttribute('aria-expanded','false');
+                    }
+                });
+            }
+        })();
 
 
 </script>

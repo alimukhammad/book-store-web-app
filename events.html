@@ -51,6 +51,63 @@
           cursor: pointer;
       }
 
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 10px;
+      }
+
+      .nav-cart { margin-left: auto; }
+
+      /* Hamburger / mobile nav */
+      .nav-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        color: #C1CFD6;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      nav.nav-open {
+        position: absolute;
+        top: 64px;
+        right: 16px;
+        background: #2e2e4e;
+        padding: 12px;
+        border: 1px solid #444;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 1100;
+      }
+
+      /* Mobile: consistent nav behavior */
+      @media (max-width: 599px) {
+        nav .nav-menu { display: none; }
+        .nav-toggle { display: inline-block; }
+        nav.nav-open {
+          position: absolute;
+          top: 56px;
+          left: 0;
+          right: 0;
+          background: #2e2e4e;
+          padding: 12px 8px;
+          border-bottom: 1px solid #444;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          z-index: 1100;
+        }
+        nav.nav-open .nav-menu { display: flex; flex-direction: column; }
+        nav.nav-open .nav-menu a { padding: 10px 12px; display: block; color: #C1CFD6; text-decoration: none; }
+      }
+
       .container {
         max-width: 1200px;
         margin: 20px auto;
@@ -207,10 +264,14 @@
         <img src="photos/logo.png" alt="Logo">
         <h1>Book Haven Bookstore</h1>
         <nav>
-          <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/index.html" tabindex="0">Home</a>
-          <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/gallery.html" tabindex="0">Gallery</a>
-          <a href="C:/Users/Sam/Learning_Session_sardor/HTML_n_CSS/sophia-web-development/book-store-web-app/about.html" tabindex="0">About Us</a>
-          <button tabindex="0" id="openPopUp">CART</button>
+          <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Open navigation">☰</button>
+          <div id="navMenu" class="nav-menu">
+            <a href="/index.html" tabindex="0">Home</a>
+            <a href="/gallery.html" tabindex="0">Gallery</a>
+            <a href="/events.html" tabindex="0">Events</a>
+            <a href="/about.html" tabindex="0">About Us</a>
+          </div>
+          <button tabindex="0" id="openPopUp" class="nav-cart">CART</button>
         </nav>
     </div>
   </header>
@@ -274,7 +335,7 @@
 
         <!-- Center: Links -->
         <div class="footer-center">
-          <a href="/page" tabindex="0">Home</a>
+          <a href="/index.html" tabindex="0">Home</a>
           <a href="/about.html" tabindex="0">About Us</a>
           <a href="/events.html" tabindex="0">Events</a>
         </div>
@@ -303,6 +364,27 @@
         }
     });
 </script>
+    <script>
+      // Mobile nav toggle behavior
+      (function(){
+        const navToggle = document.getElementById('navToggle');
+        const nav = document.querySelector('nav');
+        const navMenu = document.getElementById('navMenu');
+        if (!navToggle || !nav) return;
+        navToggle.addEventListener('click', () => {
+          const opened = nav.classList.toggle('nav-open');
+          navToggle.setAttribute('aria-expanded', opened ? 'true' : 'false');
+        });
+        if (navMenu) {
+          navMenu.addEventListener('click', (e) => {
+            if (e.target && e.target.tagName === 'A') {
+              nav.classList.remove('nav-open');
+              navToggle.setAttribute('aria-expanded','false');
+            }
+          });
+        }
+      })();
+    </script>
 
 </body>
 </html>
